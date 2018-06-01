@@ -1,0 +1,10 @@
+{
+  "name": "thorin-redis-proxy",
+  "author": "UNLOQ Systems LTD",
+  "version": "1.0.0",
+  "description": "A Redis-sentinel proxy written in Node.js that requires redis-cli to be set in path.",
+  "license": "MIT",
+  "main": "proxy.js",
+  "dependencies": {
+  }
+}
