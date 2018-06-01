@@ -6,6 +6,7 @@
 - ```SENTINEL_NAME``` the redis-sentinel cluster name, configured in the sentinels
 - ```SENTINEL_CHECK``` (default 800ms) how often do we query a sentinel for the master information, in milliseconds
 - ```PORT``` (default 6379) the default port to run the proxy, defaults to 6379
+- ```HEALTH_PORT``` (default 8080)  the HTTP health check server to return 200 ok
 
 ##### Notes: the same environment variables can be given in the node argv
 ```
