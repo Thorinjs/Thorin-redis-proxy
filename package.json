@@ -5,6 +5,14 @@
   "description": "A Redis-sentinel proxy written in Node.js that requires redis-cli to be set in path.",
   "license": "MIT",
   "main": "proxy.js",
+  "homepage": "https://github.com/Thorinjs/Thorin-redis-proxy",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Thorinjs/Thorin-redis-proxy"
+  },
+  "bugs": {
+    "url": "https://github.com/Thorinjs/Thorin-redis-proxy/issues"
+  },
   "dependencies": {
   }
 }
