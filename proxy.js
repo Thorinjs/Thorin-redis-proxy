@@ -8,9 +8,11 @@
  *  - SENTINEL_NAME -> the name of the sentinel cluster
  *  - SENTINEL_CHECK -> the number of milliseconds between checks
  *  - PORT -> the port to expose (defaults to 6379)
+ *  - HEALTH_PORT -> the port to bind to expose a HTTP health-check
  * */
 let PORT = parseInt(process.env.PORT || '6379', 10),
   SENTINEL_CHECK = process.env.SENTINEL_CHECK || 800,
+  HEALTH_PORT = process.env.HEALTH_PORT || 8080,
   SENTINEL_HOST = process.env.SENTINEL_HOST,
   SENTINEL_NAME = process.env.SENTINEL_NAME,
   SENTINEL_PORT = 26379;
@@ -43,9 +45,9 @@ if (SENTINEL_HOST.indexOf(':') !== -1) {
   SENTINEL_HOST = SENTINEL_HOST.split(':')[0];
 }
 const util = require('./lib/util'),
+  http = require('http'),
   initServer = require('./lib/server'),
   initPool = require('./lib/pool');
-
 (async () => {
   let resolvedSentinelIp = await util.getHostnameIp(SENTINEL_HOST);
   if (!resolvedSentinelIp) {
@@ -63,10 +65,15 @@ const util = require('./lib/util'),
     console.log(`* Sentinel checker starting`);
     poolObj.check();
     console.log(`* Proxy listening on port ${PORT}`);
+    console.log(`* Health check listening on port ${HEALTH_PORT}`);
   } catch (e) {
     console.error(`Could not start server on port ${PORT}`);
     console.error(e);
     return process.exit(1);
   }
   console.log(`*********************************************`);
+  http.createServer(function (req, res) {
+    res.write('{}');
+    res.end();
+  }).listen(parseInt(HEALTH_PORT));
 })();
